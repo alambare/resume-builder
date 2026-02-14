@@ -1,0 +1,113 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[top=0.8cm, bottom=0.8cm, left=1.3cm, right=1.3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=1pt, leftmargin=*, parsep=0pt, itemsep=1.2pt}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=black,
+    linkcolor=black,
+}
+\usepackage{fontawesome5}
+
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{0.6ex plus 0.2ex minus 0.1ex}{1.0ex plus 0.2ex}
+
+% Adjust global line spacing
+\linespread{1.05}
+\setlength{\parskip}{3pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+%----------------- Header -----------------%
+\begin{center}
+  {\LARGE \textbf{ {{- name -}} }}\\
+  {{ title }}\\[0.3em]
+  \faMapMarker*~{{ location }} \quad 
+  \faEnvelope[regular]~\href{mailto:{{ email }}}{ {{- email -}} }{% if phone %} \quad 
+  \faPhone*~{{ phone }}{% endif %}{% if linkedin %} \quad 
+  \faLinkedin~\href{ {{- linkedin -}} }{ {{- linkedin_display -}} }{% endif %}{% if github %} \quad 
+  \faGithub~\href{ {{- github -}} }{ {{- github_display -}} }{% endif %}
+\end{center}
+\vspace{-0.9em}
+
+%----------------- Summary -----------------%
+{% if summary %}
+\section*{Summary}
+\vspace{-0.3em}
+{{ summary }}
+{% endif %}
+
+%----------------- Professional Experience -----------------%
+{% if experience %}
+\section*{Professional Experience}
+{% for exp in experience %}
+\noindent\textbf{ {{- exp.title -}} }, \textit{ {{- exp.company -}} }, {{ exp.start }} -- {{ exp.end }}
+{% if exp.description %}\\{{ exp.description }}{% endif %}
+\vspace{-0.2em}
+\begin{itemize}[leftmargin=1.2em, itemsep=0pt, topsep=0pt, parsep=0pt]
+{% for b in exp.bullets %}
+\item {{ b | replace('\\textbf{', '') | replace('}', '') }}
+{% endfor %}
+\end{itemize}
+\vspace{0.1em}
+{% endfor %}
+{% endif %}
+
+%----------------- Certifications -----------------%
+{% if certifications %}
+\section*{Certifications}
+\vspace{-0.3em}
+\begin{itemize}[leftmargin=1.2em, itemsep=0pt, topsep=0pt, parsep=0pt]
+{% for cert in certifications %}
+\item \textbf{ {{- cert.name -}} }, \textit{ {{- cert.issuer -}} }, {{ cert.year }}{% if cert.url %}, \href{ {{- cert.url -}} }{Credly Badge}{% endif %}
+{% endfor %}
+\end{itemize}
+{% endif %}
+
+%----------------- Involvement -----------------%
+{% if involvement %}
+\section*{Involvement}
+{% for inv in involvement %}
+\noindent\textbf{ {{- inv.title -}} }: {{ inv.description }}
+\vspace{0.1em}
+{% endfor %}
+{% endif %}
+
+%----------------- Skills -----------------%
+{% if skills or languages %}
+\section*{Skills}
+{% if skills %}
+{% for category, items in skills.items() %}
+\noindent\textbf{ {{- category -}} }: {{ items | join(', ') }}
+{% endfor %}
+{% endif %}
+{% if languages %}
+\noindent\textbf{Languages}: {{ languages | join(', ') }}
+{% endif %}
+{% endif %}
+
+%----------------- Education -----------------%
+{% if education %}
+\section*{Education}
+\vspace{-0.3em}
+{% for edu in education %}
+\textbf{ {{- edu.degree -}} }, \textit{ {{- edu.institution -}} }, {{ edu.start }} -- {{ edu.end }}
+\\{{ edu.description }}
+{% if edu.academic_experience %}
+\begin{itemize}
+{% for a in edu.academic_experience %}
+\item \textbf{ {{- a.title -}} }: {{ a.description }}
+{% endfor %}
+\end{itemize}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+\end{document}

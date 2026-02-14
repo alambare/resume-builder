@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "resume-builder"
+version = "0.1.0"
+description = "A simple LaTeX resume generator from YAML"
+authors = [
+    {name = "Aubin Lambaré", email = "aubin.lambare@laposte.net"},
+]
+requires-python = ">=3.8"
+dependencies = [
+    "PyYAML>=6.0",
+    "Jinja2>=3.1.2",
+]
+
+[project.scripts]
+resume-builder = "src.main:main"
+
+[tool.hatch.build]
+# Include the templates directory in the package
+include = [
+  "src",
+  "templates/*.tex",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]

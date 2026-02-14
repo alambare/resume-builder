@@ -1,0 +1,147 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+\usepackage{titlesec}
+\usepackage{paracol}
+
+% Adjust list spacing
+\setlist[itemize]{noitemsep, topsep=1pt, leftmargin=*, parsep=0pt, itemsep=1.2pt}
+
+% Hyperlink Setup
+\hypersetup{
+    colorlinks=true,
+    urlcolor=black,
+    linkcolor=black,
+}
+
+% Section Formatting
+\titleformat{\section}{\Large\bfseries\uppercase}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{1.0ex plus 0.2ex minus 0.1ex}{0.8ex plus 0.2ex}
+
+% Subsection Formatting (for Company/Role)
+\titleformat{\subsection}{\bfseries}{}{0em}{}
+\titlespacing*{\subsection}{0pt}{0.6ex}{0.2ex}
+
+% Adjust global spacing
+\linespread{1.05}
+\setlength{\parskip}{3pt}
+\pagestyle{empty}
+
+\begin{document}
+
+%----------------- Header -----------------%
+\begin{flushleft}
+  {\LARGE \textbf{ {{- name -}} }}\\
+  {{ title }}\\[0.3em]
+  \faMapMarker*~{{ location }} \quad 
+  \faEnvelope[regular]~\href{mailto:{{ email }}}{ {{- email -}} }{% if phone %} \quad 
+  \faPhone*~{{ phone }}{% endif %}{% if linkedin %} \quad 
+  \faLinkedin~\href{ {{- linkedin -}} }{ {{- linkedin_display -}} }{% endif %}{% if github %} \quad 
+  \faGithub~\href{ {{- github -}} }{ {{- github_display -}} }{% endif %}
+\end{flushleft}
+\vspace{-1em}
+
+%----------------- Two Column Layout -----------------%
+\vspace{1em}
+\setlength{\columnsep}{0.6cm}
+
+% Set uneven column widths (0.64 + 0.32 approx)
+\columnratio{0.64}
+\begin{paracol}{2}
+    
+    %--- Left Column Content ---%
+    %--- Professional Experience ---%
+    {% if experience %}
+    \section*{Professional Experience}
+    {% for exp in experience %}
+    \noindent\textbf{ {{- exp.title -}} }\\
+    \textit{ {{- exp.company -}} } \hfill {{ exp.start }} -- {{ exp.end }}%
+    {% if exp.description %}
+    \par\vspace{0.2em}
+    {{ exp.description }}
+    {% endif %}
+    {% if exp.bullets %}
+    \begin{itemize}
+        {% for bullet in exp.bullets %}
+        \item {{ bullet }}
+        {% endfor %}
+    \end{itemize}
+    \vspace{0.5em}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    %--- Education ---%
+    {% if education %}
+    \section*{Education}
+    {% for edu in education %}
+    \noindent\textbf{ {{- edu.degree -}} }\\
+    \textit{ {{- edu.institution -}} }, {{ edu.location }} \hfill {{ edu.start }} -- {{ edu.end }}%
+    {% if edu.description %}
+    \par\vspace{0.2em}
+    \small {{ edu.description }}
+    {% endif %}
+    \vspace{0.5em}
+    {% endfor %}
+    {% endif %}
+
+    \switchcolumn
+
+    %--- Right Column Content ---%
+    %--- Summary ---%
+    {% if summary %}
+    \section*{Summary}
+    \small
+    {{ summary }}
+    \vspace{0.5em}
+    {% endif %}
+
+    %--- Certifications ---%
+    {% if certifications %}
+    \section*{Certifications}
+    \small
+    {% for cert in certifications %}
+    \noindent\href{ {{- cert.url -}} }{\textbf{ {{- cert.name -}} \faExternalLink*}}\\
+    {{ cert.issuer }}, {{ cert.year }}
+    \vspace{0.4em}
+    {% endfor %}
+    \vspace{0.2em}
+    {% endif %}
+
+    %--- Languages ---%
+    {% if languages %}
+    \section*{Languages}
+    \small
+    \begin{itemize}[leftmargin=1.2em]
+        {% for lang in languages %}
+        \item {{ lang }}
+        {% endfor %}
+    \end{itemize}
+    \vspace{0.5em}
+    {% endif %}
+
+    %--- Skills ---%
+    {% if skills %}
+    \section*{Skills}
+    \small
+    {% for category, items in skills.items() %}
+    \noindent\textbf{ {{- category -}} }\\
+    \begingroup
+    \raggedright
+    {% for item in items %}
+     {{- item -}} {% if not loop.last %} $\cdot$ {% endif %}
+    {% endfor %}
+    \par
+    \endgroup
+    \vspace{0.8em}
+    {% endfor %}
+    {% endif %}
+
+\end{paracol}
+
+\end{document}

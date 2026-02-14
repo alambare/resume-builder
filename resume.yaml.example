@@ -1,0 +1,93 @@
+# Resume Configuration Example
+# Copy this file to resume.yaml and fill in your details.
+
+# --- Personal Information ---
+name: John Doe
+title: Senior Software Engineer
+location: New York, USA
+email: john.doe@example.com
+phone: +1 (555) 010-0101
+
+# Social Links
+# 'display' fields are what will determine the text shown in the PDF
+linkedin: https://www.linkedin.com/in/johndoe
+linkedin_display: johndoe
+github: https://github.com/johndoe
+github_display: johndoe
+
+# --- Languages ---
+# List of languages with proficiency levels
+languages:
+  - English (native)
+  - French (fluent)
+  - Spanish (intermediate)
+
+# --- Certifications ---
+# Optional section
+certifications:
+  - name: AWS Certified Solutions Architect
+    issuer: Amazon Web Services
+    year: 2024
+    url: https://aws.amazon.com/certification/
+
+# --- Professional Summary ---
+# A brief overview of your professional profile.
+# You can use the '>' block scalar for multi-line strings.
+summary: >
+  Start with a strong opening statement. Highlight key achievements,
+  technical expertise, and what you bring to the table. Keep it concise
+  and impactful.
+
+# --- Skills ---
+# Grouped by category. You can add or remove categories as needed.
+skills:
+  Programming Languages:
+    - Python
+    - JavaScript
+    - Go
+  
+  Frameworks & Libraries:
+    - React
+    - Django
+    - FastAPI
+  
+  Cloud & DevOps:
+    - AWS
+    - Docker
+    - Kubernetes
+    - Terraform
+
+# --- Professional Experience ---
+# List your roles in reverse chronological order (newest first).
+experience:
+  - title: Senior Backend Engineer
+    company: Tech Corp
+    location: San Francisco, USA
+    start: 2022-01        # Format: YYYY-MM or YYYY
+    end: Present          # Use 'Present' for current roles
+    description: >
+      Short description of the role and the company's domain.
+    bullets:
+      - Led the migration of legacy monolith to microservices architecture.
+      - Improved system performance by 40% through database optimization.
+      - Mentored junior developers and conducted code reviews.
+
+  - title: Software Developer
+    company: Startup Inc
+    location: Remote
+    start: 2019-06
+    end: 2021-12
+    bullets:          # 'description' is optional
+      - Developed RESTful APIs using Node.js and Express.
+      - Implemented CI/CD pipelines using GitHub Actions.
+
+# --- Education ---
+education:
+  - degree: Master of Computer Science
+    institution: University of Technology
+    location: City, Country
+    start: 2017-09
+    end: 2019-06
+    description: >
+      Specialized in Artificial Intelligence and Machine Learning.
+      Graduated with Honors.
