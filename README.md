@@ -8,13 +8,14 @@ cp resume.yaml.example resume.yaml
 ```
 
 ### 2. Installation
-Install the package (requires `pdflatex`):
+
+Install TexLive: https://tug.org/texlive/quickinstall.html
 
 ```shell
-# for pdflatex
-sudo apt install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
-
 pip install .
+
+tlmgr init-usertree
+tlmgr install --usermode fontawesome7
 ```
 
 ### 2. Build Resume
@@ -26,12 +27,13 @@ resume-builder resume.yaml [OPTIONS]
 
 **Options:**
 - `-n, --name NAME` : Custom output filename
+- `-t, --template`  : Template to choose from (default: `basic`)
 - `-d, --dir PATH`  : Parent output directory (default: `output/`)
 - `--debug`         : Enable verbose logs
 
 **Example:**
 ```shell
-resume-builder resume.yaml --name "MyResume" --dir ./dist
+resume-builder resume.yaml
 ```
 
 ### 3. Manual PDF Generation

@@ -11,10 +11,10 @@
     urlcolor=black,
     linkcolor=black,
 }
-\usepackage{fontawesome5}
+\usepackage{fontawesome7}
 
 \usepackage{titlesec}
-\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\section}{\large\bfseries\centering}{}{0em}{}[\titlerule]
 \titlespacing*{\section}{0pt}{0.6ex plus 0.2ex minus 0.1ex}{1.0ex plus 0.2ex}
 
 % Adjust global line spacing
@@ -29,9 +29,9 @@
 \begin{center}
   {\LARGE \textbf{ {{- name -}} }}\\
   {{ title }}\\[0.3em]
-  \faMapMarker*~{{ location }} \quad 
+  \faLocationDot~{{ location }} \quad 
   \faEnvelope[regular]~\href{mailto:{{ email }}}{ {{- email -}} }{% if phone %} \quad 
-  \faPhone*~{{ phone }}{% endif %}{% if linkedin %} \quad 
+  \faPhone~{{ phone }}{% endif %}{% if linkedin %} \quad 
   \faLinkedin~\href{ {{- linkedin -}} }{ {{- linkedin_display -}} }{% endif %}{% if github %} \quad 
   \faGithub~\href{ {{- github -}} }{ {{- github_display -}} }{% endif %}
 \end{center}
@@ -48,7 +48,8 @@
 {% if experience %}
 \section*{Professional Experience}
 {% for exp in experience %}
-\noindent\textbf{ {{- exp.title -}} }, \textit{ {{- exp.company -}} }, {{ exp.start }} -- {{ exp.end }}
+\noindent\textbf{ {{- exp.title -}} }, \textit{ {{- exp.company -}} } \hfill {{ exp.start }} -- {{ exp.end }}
+\vspace{0.5em}
 {% if exp.description %}\\{{ exp.description }}{% endif %}
 \vspace{-0.2em}
 \begin{itemize}[leftmargin=1.2em, itemsep=0pt, topsep=0pt, parsep=0pt]
@@ -63,12 +64,10 @@
 %----------------- Certifications -----------------%
 {% if certifications %}
 \section*{Certifications}
-\vspace{-0.3em}
-\begin{itemize}[leftmargin=1.2em, itemsep=0pt, topsep=0pt, parsep=0pt]
 {% for cert in certifications %}
-\item \textbf{ {{- cert.name -}} }, \textit{ {{- cert.issuer -}} }, {{ cert.year }}{% if cert.url %}, \href{ {{- cert.url -}} }{Credly Badge}{% endif %}
+\textbf{ {{- cert.name -}} }, \textit{ {{- cert.issuer -}} }{% if cert.url %}, \href{ {{- cert.url -}} }{Credly Badge~\faLink}{% endif %} \hfill {{ cert.year }}
+\vspace{0.2em} % Optional: Add space between certifications if you have multiple
 {% endfor %}
-\end{itemize}
 {% endif %}
 
 %----------------- Involvement -----------------%
@@ -96,9 +95,9 @@
 %----------------- Education -----------------%
 {% if education %}
 \section*{Education}
-\vspace{-0.3em}
 {% for edu in education %}
-\textbf{ {{- edu.degree -}} }, \textit{ {{- edu.institution -}} }, {{ edu.start }} -- {{ edu.end }}
+\textbf{ {{- edu.degree -}} }, \textit{ {{- edu.institution -}} } \hfill {{ edu.start }} -- {{ edu.end }}
+\vspace{0.5em}
 \\{{ edu.description }}
 {% if edu.academic_experience %}
 \begin{itemize}
